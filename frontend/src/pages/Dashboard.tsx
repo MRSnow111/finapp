@@ -130,7 +130,7 @@ export default function Dashboard() {
           </div>
           <div className="rounded-2xl bg-deep/40 p-3 text-center">
             <div className="text-xs uppercase tracking-wide text-sage">Расходы</div>
-            <div className="mt-0.5 text-lg font-semibold tabular-nums text-expense">−{formatMoney(expense)}</div>
+            <div className="mt-0.5 text-lg font-semibold tabular-nums text-expense">{formatMoney(expense)}</div>
           </div>
         </div>
       </motion.div>
