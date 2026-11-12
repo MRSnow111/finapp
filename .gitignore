@@ -1,2 +1,17 @@
+# Зависимости
 node_modules/
-dist/
+__pycache__/
+*.pyc
+.venv/
+
+# Сборка
+frontend/dist/
+
+# БД и секреты
+*.db
+.env
+ssl/
+
+# Прочее
+.DS_Store
+*.log

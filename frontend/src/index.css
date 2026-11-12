@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Тёмная тема (по умолчанию) */
+:root {
+  --c-deep: 5 31 32; /* #051F20 */
+  --c-forest: 11 43 38; /* #0B2B26 */
+  --c-moss: 22 56 50; /* #163832 */
+  --c-pine: 35 83 71; /* #235347 */
+  --c-sage: 142 182 155; /* #8EB69B */
+  --c-mint: 218 241 222; /* #DAF1DE */
+  --c-accent: 142 182 155;
+  --c-accent2: 184 220 195;
+  --c-expense2: 217 106 94;
+  --c-income: 142 227 166;
+  --c-expense: 240 138 126;
+  --orb-1: #235347;
+  --orb-2: #163832;
+  --orb-3: #8eb69b;
+  --orb-3-opacity: 0.18;
+  --sky-1: #0b2b26;
+}
+
+/* Светлая тема — те же роли, инвертированная светлота */
+html.light {
+  --c-deep: 242 248 244;
+  --c-forest: 255 255 255;
+  --c-moss: 226 238 230;
+  --c-pine: 198 216 205;
+  --c-sage: 74 107 89;
+  --c-mint: 11 43 38;
+  --c-accent: 35 83 71;
+  --c-accent2: 74 107 89;
+  --c-expense2: 210 90 74;
+  --c-income: 21 128 61;
+  --c-expense: 179 64 47;
+  --orb-1: #cfe6d6;
+  --orb-2: #dff0e3;
+  --orb-3: #8eb69b;
+  --orb-3-opacity: 0.28;
+  --sky-1: #eaf4ec;
+}
+
+html {
+  background: rgb(var(--c-deep));
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: rgb(var(--c-mint));
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgb(var(--c-pine));
+  color: rgb(var(--c-mint));
+}
+
+/* Анимированный фон: дрейфующие размытые пятна */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at top, var(--sky-1) 0%, rgb(var(--c-deep)) 65%);
+  transition: background 0.3s ease;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform;
+  animation: aurora-drift 22s ease-in-out infinite alternate;
+  transition: background 0.3s ease;
+}
+
+.aurora-orb-1 {
+  width: 46vmax;
+  height: 46vmax;
+  left: -12vmax;
+  top: -14vmax;
+  background: var(--orb-1);
+}
+
+.aurora-orb-2 {
+  width: 40vmax;
+  height: 40vmax;
+  right: -10vmax;
+  top: 30vh;
+  background: var(--orb-2);
+  animation-duration: 28s;
+  animation-delay: -6s;
+}
+
+.aurora-orb-3 {
+  width: 34vmax;
+  height: 34vmax;
+  left: 25vw;
+  bottom: -16vmax;
+  background: var(--orb-3);
+  opacity: var(--orb-3-opacity);
+  animation-duration: 32s;
+  animation-delay: -12s;
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(8vw, 6vh, 0) scale(1.12);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-orb,
+  .animate-fade-up {
+    animation: none;
+  }
+}
