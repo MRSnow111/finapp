@@ -11,6 +11,8 @@ frontend/dist/
 *.db
 .env
 ssl/
+backups/
+nginx/rendered.conf
 
 # Прочее
 .DS_Store

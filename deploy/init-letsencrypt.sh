@@ -24,8 +24,11 @@ docker compose up -d api nginx
 sleep 2
 
 echo "==> 3/5 Прошу сертификат у Let's Encrypt"
+# Удаляем дамми-сертификат, иначе certbot не выдаст настоящий для того же имени.
+# Порт 80 не пробрасываем: его уже держит контейнер nginx, certbot пишет в общий webroot.
+docker compose run --rm --entrypoint sh certbot -c \
+  "rm -rf /etc/letsencrypt/live/$DOMAIN /etc/letsencrypt/archive/$DOMAIN /etc/letsencrypt/renewal/$DOMAIN.conf"
 docker compose run --rm \
-  -p 80:80 \
   --entrypoint certbot certbot \
   certonly --webroot -w /var/www/certbot \
   -d "$DOMAIN" \

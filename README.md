@@ -46,18 +46,19 @@ uvicorn app.main:app --port 8123
 # 1. Разовая настройка (sudo): пользователь finapp, ufw, автообновления
 sudo ./deploy/setup-host.sh
 
-# 2. Секреты (от пользователя finapp)
+# 2. Секреты и каталоги (от пользователя finapp)
 cp .env.example .env
-openssl rand -hex 32          # вставить в .env как SESSION_SECRET
+openssl rand -hex 32          # вставить в .env как SESSION_SECRET (значение change-me не годится, сервер не стартует)
 chmod 600 .env
+mkdir -p backups
 
-# 3. Старт
-docker compose up -d --build
+# 3. Только API: nginx пока не нужен, и без rendered.conf он не стартует
+docker compose up -d --build api
 
 # 4. Первый администратор
 docker compose exec api python -m app.cli create-admin <email> <name> <password>
 
-# 5. HTTPS (первичный сертификат + перевод nginx на 443)
+# 5. HTTPS: выдаёт сертификат, поднимает nginx и certbot, переводит nginx на 443
 ./deploy/init-letsencrypt.sh <domain> <email>
 ```
 

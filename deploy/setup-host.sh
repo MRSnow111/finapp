@@ -51,7 +51,7 @@ echo "Каталог проекта передан пользователю fina
 echo
 echo "Готово. Дальше (от пользователя finapp):"
 echo "  1. cp .env.example .env && nano .env   # SESSION_SECRET: openssl rand -hex 32"
-echo "  2. docker compose up -d --build"
+echo "  2. mkdir -p backups && docker compose up -d --build api"
 echo "  3. docker compose exec api python -m app.cli create-admin <email> <name> <password>"
-echo "  4. ./deploy/init-letsencrypt.sh <domain> <email>"
+echo "  4. ./deploy/init-letsencrypt.sh <domain> <email>   # поднимает nginx и certbot"
 echo "  5. crontab -e:  3 4 * * * $PROJECT_DIR/deploy/backup.sh >> $PROJECT_DIR/backups/backup.log 2>&1"
